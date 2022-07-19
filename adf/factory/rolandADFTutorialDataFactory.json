@@ -1,0 +1,9 @@
+{
+	"name": "rolandADFTutorialDataFactory",
+	"location": "norwayeast",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "6cd43466-b57f-4eaa-a6c0-042b5ccf96d3",
+		"tenantId": "413600cf-bd4e-4c7c-8a61-69e73cddf731"
+	}
+}
