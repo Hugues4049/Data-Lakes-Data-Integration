@@ -131,18 +131,23 @@ import pandas as pd
 # Define parameters
 connectionString = "DefaultEndpointsProtocol=https;AccountName=batchstorage4049;AccountKey=mgaTFbGRO+ZZ2xu9GDJ+MXVdbbEwpFHrAOJkmVzwMKU9W7yURF8I4Pa9gC28zN9uywNGyR0f0Ld/+AStDVK99g==;EndpointSuffix=core.windows.net"
 containerName = "smavoutput"
+containerName1 = "yahoodata"
 outputBlobName1	= "moving_average.csv"
 outputBlobName2 = "daily_return.csv"
+outputBlobName3 = "hystoricdata.csv"
 
 # Establish connection with the blob storage account
 blob1 = BlobClient.from_connection_string(conn_str=connectionString, container_name=containerName, blob_name=outputBlobName1)
 blob2 = BlobClient.from_connection_string(conn_str=connectionString, container_name=containerName, blob_name=outputBlobName2)
-# Load iris dataset from the task node
+blob3 = BlobClient.from_connection_string(conn_str=connectionString, container_name=containerName1, blob_name=outputBlobName3)
+# Load  dataset from the task node
 df1 = output_df
 df2 = output_df2
+df3 = yahoo_df
 # Save the subset of the iris dataframe locally in task node
 df1.to_csv(outputBlobName1, index = False)
 df2.to_csv(outputBlobName2, index = False)
+df3.to_csv(outputBlobName3, index = False)
 
 if blob1.exists():
     print("moving_average.csv already exists in the container")
@@ -158,9 +163,18 @@ if blob2.exists():
 else:
     print("daily_return.csv does not exist in the container")
     #adding the file to the result container
-    with open(outputBlobName1, "rb") as data:
+    with open(outputBlobName2, "rb") as data:
     	blob2.upload_blob(data)
     	print("daily_return.csv uploaded to the container")
+        
+if blob3.exists():
+    print("hystoricdata.csvalready exists in the container")
+else:
+    print("hystoricdata.csv does not exist in the container")
+    #adding the file to the result container
+    with open(outputBlobName3, "rb") as data:
+    	blob3.upload_blob(data)
+    	print("hystoricdata.csv uploaded to the container")
 
 # COMMAND ----------
 
