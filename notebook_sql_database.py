@@ -164,4 +164,39 @@ else:
 
 # COMMAND ----------
 
+##Data from yahoo finance
+from yahoo_fin.stock_info import get_data
+
+# COMMAND ----------
+
+ticker_list = ["amzn", "aapl", "ba"]
+historical_datas = {}
+for ticker in ticker_list:
+    historical_datas[ticker] = get_data(ticker)
+
+# COMMAND ----------
+
+print(historical_datas)
+
+# COMMAND ----------
+
+type(historical_datas)
+
+# COMMAND ----------
+
+historical_datas.keys()
+
+# COMMAND ----------
+
+T1 = historical_datas["aapl"]
+T2 = historical_datas['amzn']
+T3 = historical_datas['ba']
+
+# COMMAND ----------
+
+yahoo_df = pd.concat([T1, T2, T3])
+yahoo_df
+
+# COMMAND ----------
+
 
